@@ -12,12 +12,12 @@ var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var browserSync = require('browser-sync');
 
-gulp.task('sass', function(){
-  gulp.src('src/*.scss')
-  .pipe(sass().on('error', sass.logError))
+/* gulp.task('gulp', function(){
+  gulp.src('/dev')
+  .pipe(gulp().on('error', gulp.logError))
   .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', function(){
   gulp.watch('src/*.scss', ['sass']);
-});
+}); */

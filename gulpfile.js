@@ -11,6 +11,7 @@ var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var browserSync = require('browser-sync');
+var minifyCss = require('gulp-minify-css');
 
 /* gulp.task('gulp', function(){
   gulp.src('/dev')
@@ -18,6 +19,33 @@ var browserSync = require('browser-sync');
   .pipe(gulp.dest('dist'));
 });
 
+ */
+
+ var paths = {
+  sass: ['./dev/sass/*.scss'],
+  script: ['./dev/js/script.js'],
+  htmls: ['./dev/**/*.html'],
+ };
+
+gulp.task('default', ['browser-sync', 'watch']);
+
+/* Inicia o servidor */
+gulp.task('browser-sync', function(){
+  browserSync.init({
+    server: {
+      baseDir: 'dev'
+    }
+  });
+});
+
+/* compilando sass para css e salvando em nova pasta */
+gulp.task('sass-compile', function() {
+  return gulp.src('./dev/sass/style.scss')
+    .pipe(sass()).on('error', sass.logError)
+    .pipe(gulp.dest('./dev/css'));
+});
+
+/* Aguarda por alterações nos arquivos */
 gulp.task('watch', function(){
-  gulp.watch('src/*.scss', ['sass']);
-}); */
+  gulp.watch(paths.sass, ['sass-compile']);  
+});

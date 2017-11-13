@@ -20,9 +20,16 @@ var reload = browserSync.reload;
 }); */
 
  var paths = {
-  sass: ['./dev/sass/base/*.scss'],
+  sass: ['./dev/sass/main.scss'],
+  css: ['./dev/sass/base/*.scss'],
   script: ['./dev/js/*.js'],
   htmls: ['./dev/**/*.html'],
+  index: ['./dev/index.html'],
+  libs: ['./dev/lib/*.js']
+ };
+
+ var dests = {
+
  };
 
 gulp.task('default', ['server', 'watch', 'html-compile', 'sass-compile', 'scripts-compile']);
@@ -38,28 +45,27 @@ gulp.task('server', function(){
 
 /* compilando sass para css e salvando no dist */
 gulp.task('sass-compile', function() {
-  return gulp.src('./dev/sass/main.scss')
+  return gulp.src(paths.sass)
     .pipe(sass()).on('error', sass.logError)
     .pipe(gulp.dest('./dist/css'));
 });
 
+/* passando os scripts para o dist */
 gulp.task('scripts-compile', function(){
-  gulp.src('./dev/lib/bootstrap.bundle.min.js')
+  gulp.src(paths.libs)
   .pipe(gulp.dest('./dist/lib'));
-  gulp.src('./dev/lib/bootstrap.min.js')
-  .pipe(gulp.dest('./dist/lib'));
-  gulp.src('./dev/js/script.js')
+  gulp.src(paths.script)
   .pipe(gulp.dest('./dist/js'));
 });
 
 /* passando o html para o dist */
 gulp.task('html-compile', function(){
-  gulp.src('./dev/*.html')
+  gulp.src(paths.index)
   .pipe(gulp.dest('./dist'));
 });
 
 /* Aguarda por alterações nos arquivos */
 gulp.task('watch', function(){
-  gulp.watch(paths.sass, ['sass-compile']).on('change', reload);
+  gulp.watch(paths.css, ['sass-compile']).on('change', reload);
   gulp.watch(paths.htmls, ['html-compile']).on('change', reload);
 });

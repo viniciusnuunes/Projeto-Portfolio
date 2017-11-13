@@ -8,7 +8,6 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
-var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var browserSync = require('browser-sync');
 var minifyCss = require('gulp-minify-css');
@@ -21,12 +20,12 @@ var reload = browserSync.reload;
 }); */
 
  var paths = {
-  sass: ['./dev/sass/*.scss'],
+  sass: ['./dev/sass/base/*.scss'],
   script: ['./dev/js/*.js'],
   htmls: ['./dev/**/*.html'],
  };
 
-gulp.task('default', ['server', 'watch', 'html-compile']);
+gulp.task('default', ['server', 'watch', 'html-compile', 'sass-compile', 'scripts-compile']);
 
 /* Inicia o servidor */
 gulp.task('server', function(){
@@ -39,9 +38,18 @@ gulp.task('server', function(){
 
 /* compilando sass para css e salvando no dist */
 gulp.task('sass-compile', function() {
-  return gulp.src('./dev/sass/style.scss')
+  return gulp.src('./dev/sass/main.scss')
     .pipe(sass()).on('error', sass.logError)
     .pipe(gulp.dest('./dist/css'));
+});
+
+gulp.task('scripts-compile', function(){
+  gulp.src('./dev/lib/bootstrap.bundle.min.js')
+  .pipe(gulp.dest('./dist/lib'));
+  gulp.src('./dev/lib/bootstrap.min.js')
+  .pipe(gulp.dest('./dist/lib'));
+  gulp.src('./dev/js/script.js')
+  .pipe(gulp.dest('./dist/js'));
 });
 
 /* passando o html para o dist */

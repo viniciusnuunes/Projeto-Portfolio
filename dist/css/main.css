@@ -7571,7 +7571,7 @@ template {
 
 /*# sourceMappingURL=bootstrap-reboot.min.css.map */
 body {
-  background: url("../img/bg2.jpg") no-repeat center center fixed;
+  background: url("../img/bg1.jpg") no-repeat center center fixed;
   background-size: cover;
   /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
   -webkit-background-size: cover;
@@ -7585,3 +7585,6 @@ body {
 h1 {
   color: white;
   padding-top: 20px; }
+
+.navbar {
+  text-align: center; }
